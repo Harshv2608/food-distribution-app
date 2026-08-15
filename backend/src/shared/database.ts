@@ -9,6 +9,7 @@ const pool = new Pool({
   database: process.env.DB_NAME || 'food_rescue_db',
   password: process.env.DB_PASSWORD || 'food_password',
   port: parseInt(process.env.DB_PORT || '5432', 10),
+  ssl: (process.env.DB_HOST && process.env.DB_HOST !== 'localhost') ? { rejectUnauthorized: false } : undefined,
 });
 
 /**
