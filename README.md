@@ -1,156 +1,150 @@
-<div align="center">
-  <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop" alt="Food Rescue Platform" width="100%" height="300" style="object-fit: cover; border-radius: 12px; margin-bottom: 20px;" />
-  
-  # 🌍 Food Distribution & Rescue Platform
-  
-  **A full-stack, geospatial web application designed to connect food donors (restaurants, caterers, hotels) with nearby NGOs to eliminate food waste.**
-  
-  [![Vercel Deployment](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel)](https://food-distribution-app-xi.vercel.app/)
-  [![Render API](https://img.shields.io/badge/API-Render-46E3B7?logo=render)](https://food-distribution-api.onrender.com)
-  [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL%20%2B%20Neon-336791?logo=postgresql)](https://neon.tech)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# 📄 Food Distribution & Rescue Platform
 
-  [**Live Demo**](https://food-distribution-app-xi.vercel.app/) • [**Report Bug**](#) • [**Request Feature**](#)
-</div>
+**Food Distribution & Rescue Platform** is an enterprise-grade geospatial web application designed to connect food donors (restaurants, caterers, hotels) with nearby NGOs to eliminate food waste. It demonstrates an end-to-end logistics pipeline that transforms surplus food supply into direct community impact using geospatial filtering and deterministic matching algorithms.
 
----
+## 🚀 Key Features
 
-## 🌟 Key Features
+### 📍 Geospatial Discovery & Matching
+- Uses **PostgreSQL + PostGIS** for real-time geographic filtering (`ST_DWithin`).
+- NGOs only see available food within their physically reachable radius.
 
-1. 📍 **Geospatial Discovery & Matching**
-   - Utilizes **PostgreSQL + PostGIS** for real-time geographic filtering (`ST_DWithin`).
-   - NGOs only see available food within their physically reachable radius.
+### 🧠 Deterministic Recommendation Engine
+- Replaces unpredictable AI with a highly transparent matching algorithm.
+- Evaluates matches based on **Distance (30%), Urgency (30%), Category Match (25%), and Capacity Efficiency (15%)**.
+- Provides human-readable reasons for every match score.
 
-2. 🧠 **Deterministic Recommendation Engine**
-   - Replaces unpredictable AI with a highly transparent matching algorithm.
-   - Evaluates matches based on **Distance (30%), Urgency (30%), Category Match (25%), and Capacity Efficiency (15%)**.
-   - Provides human-readable reasons for every match score.
+### 🛡️ Backend-Controlled State Machine
+- Strict linear lifecycle: `AVAILABLE` → `CLAIMED` → `PICKUP_ASSIGNED` → `PICKED_UP` → `COMPLETED`.
+- Built with PostgreSQL transactional locks (`SELECT ... FOR UPDATE`) to guarantee atomic claiming and prevent double-booking.
 
-3. 🛡️ **Backend-Controlled State Machine**
-   - Strict linear lifecycle: `AVAILABLE` → `CLAIMED` → `PICKUP_ASSIGNED` → `PICKED_UP` → `COMPLETED`.
-   - Built with PostgreSQL transactional locks (`SELECT ... FOR UPDATE`) to guarantee atomic claiming and prevent double-booking.
+### 🧪 Automated Food Safety Risk Assessment
+- Deterministic risk engine evaluates prep times, usable limits, and storage conditions.
+- High-risk items (e.g., past expiry) are hard-rejected at the API layer for public safety.
 
-4. 🧪 **Automated Food Safety Risk Assessment**
-   - Deterministic risk engine evaluates prep times, usable limits, and storage conditions.
-   - High-risk items (e.g., past expiry) are hard-rejected at the API layer for public safety.
+### 🔐 Role-Based Access Control (RBAC)
+- Secure separation of concerns for `DONOR`, `NGO`, and `ADMIN` users.
+- JWT-based authentication ensures zero lateral movement between roles.
 
-5. 🔐 **Role-Based Access Control (RBAC)**
-   - Secure separation of concerns for `DONOR`, `NGO`, and `ADMIN` users.
-   - JWT-based authentication ensures zero lateral movement between roles.
+## 🛠️ Tech Stack
 
----
+| Category | Technology |
+| --- | --- |
+| **Frontend** | React 18, TypeScript, Vite, Vanilla CSS |
+| **Backend Engine** | Node.js, Express.js |
+| **Database** | PostgreSQL (Neon.tech) |
+| **Geospatial Processing** | PostGIS |
+| **Security** | JWT, bcrypt |
+| **Deployment** | Vercel (Frontend), Render (Backend API) |
 
-## 🏗️ Architecture & Core Workflows
+## 📂 Project Structure
 
-The platform is designed around a strictly enforced data flow to ensure food safety and transactional integrity.
+```text
+Food-Distribution/
+│
+├── backend/
+│   ├── src/
+│   │   ├── auth/
+│   │   ├── donations/
+│   │   ├── profiles/
+│   │   └── shared/
+│   ├── migrate.ts
+│   └── seed.ts
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   └── pages/
+│   ├── vite.config.ts
+│   └── vercel.json
+│
+├── README.md
+└── .env.example
+```
 
-### 1. Donor Workflow (Supply)
-1. **Login/Registration**: Donor authenticates via JWT.
-2. **Creation**: Donor submits surplus food details (category, kg, prep time, expiration, location).
-3. **Assessment**: The Backend Risk Engine verifies the data. If the food is safe, it enters the `AVAILABLE` state and is mapped geospatially.
+## ⚙️ Installation
 
-### 2. NGO Workflow (Demand)
-1. **Discovery**: NGO logs in and queries the backend. PostGIS filters available donations within their specific radius.
-2. **Matching**: The Recommendation Engine scores and sorts the available food based on the NGO's specific needs.
-3. **Claiming**: NGO claims a donation. The database initiates an atomic transaction to lock the row, moving it to `CLAIMED` and preventing any other NGO from seeing it.
-
-### 3. Fulfillment Lifecycle
-1. **Assignment**: The NGO assigns a volunteer or pickup vehicle (`PICKUP_ASSIGNED`).
-2. **Transit**: Food is picked up and in transit (`PICKED_UP`).
-3. **Completion**: Food is delivered to the community, and the transaction is closed (`COMPLETED`).
-4. **Reputation**: Both the Donor and NGO rate the transaction, updating their platform Impact Scores.
-
----
-
-## 🛠 Tech Stack
-
-### Frontend
-- **Framework**: React 18 (TypeScript) via Vite
-- **Styling**: Vanilla CSS with modern Glassmorphism UI
-- **State/Routing**: React Router DOM, Context API
-- **Icons**: Lucide React
-- **Deployment**: Vercel
-
-### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Security**: JWT (JSON Web Tokens), bcrypt (Password Hashing)
-- **Deployment**: Render
-
-### Database
-- **Engine**: PostgreSQL 15
-- **Extensions**: PostGIS (Geospatial querying)
-- **Hosting**: Neon.tech (Serverless Postgres)
-
----
-
-## 🚀 How to Fork and Run Locally
-
-Want to contribute or run your own instance of the Food Rescue Platform? Follow these steps:
-
-### 1. Fork the Repository
-1. Click the `Fork` button at the top right of this repository.
-2. Clone your forked repository to your local machine:
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/food-distribution-app.git
-   cd food-distribution-app
-   ```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Harshv2608/food-distribution-app.git
+cd food-distribution-app
+```
 
 ### 2. Database Setup (Neon / Local)
-1. Create a new PostgreSQL database. If using a cloud provider like [Neon](https://neon.tech), ensure the **PostGIS** extension is supported.
-2. Connect to your database and execute the initialization script to build the architecture:
-   ```bash
-   # You can run this from your SQL client or via the provided migration script
-   npx tsx backend/migrate.ts
-   ```
+Create a new PostgreSQL database (ensure PostGIS is enabled).
+Run the initialization script to build the architecture:
+```bash
+npx tsx backend/migrate.ts
+```
 
 ### 3. Backend Setup
-1. Open the `/backend` directory:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Set up environment variables:
-   - Create a `.env` file based on `.env.example`.
-   - Add your `DATABASE_URL`, `JWT_SECRET`, and `JWT_ACCESS_SECRET`.
-4. Start the backend development server:
-   ```bash
-   npm run dev
-   ```
+```bash
+cd backend
+npm install
+```
+Create a `.env` file based on `.env.example` with your `DATABASE_URL`, `JWT_SECRET`, and `JWT_ACCESS_SECRET`.
+```bash
+npm run dev
+```
 
 ### 4. Frontend Setup
-1. Open a new terminal and navigate to the `/frontend` directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Set up environment variables:
-   - Create a `.env` file.
-   - Add `VITE_API_URL=http://localhost:3000` (or your backend URL).
-4. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-5. Open your browser and navigate to `http://localhost:5173`.
+Open a new terminal:
+```bash
+cd frontend
+npm install
+```
+Create a `.env` file with `VITE_API_URL=http://localhost:3000` (or your deployed backend URL).
+```bash
+npm run dev
+```
+The application will automatically open in your browser at `http://localhost:5173`.
 
----
+## 🧠 How It Works
 
-## 🤝 Contributing
+```text
+Donor Posts Surplus Food
+│
+▼
+Backend Risk Assessment (Checks expiry, storage, safety)
+│
+▼
+PostgreSQL + PostGIS Filtering (Finds NGOs within radius)
+│
+▼
+Matching Engine (Scores based on distance, urgency, capacity)
+│
+▼
+NGO Claims Food (Atomic DB transaction locks the donation)
+│
+▼
+Fulfillment Lifecycle (Pickup Assigned → Picked Up → Completed)
+```
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+## 📈 Impact
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+This project demonstrates how geospatial data and strict deterministic algorithms can modernize food rescue operations by:
+- Automating the discovery of nearby surplus food.
+- Preventing logistical collisions via transactional database locks.
+- Enforcing food safety standards at the API level.
+- Creating structured, traceable pipelines from donation to delivery.
+- Enabling real-time tracking of community impact.
 
-## 📄 License
+## 🎯 Future Improvements
 
-Distributed under the MIT License. See `LICENSE` for more information.
+- Support multiple concurrent drop-offs (route optimization).
+- Export historical impact data to Excel and CSV.
+- Logistics visualization using interactive maps.
+- Mobile app integration for on-the-go volunteer routing.
+- Cloud deployment on AWS or Azure.
+- Advanced Notification System (SMS and Email alerts).
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+## 👨‍💻 Author
+
+**Harsh Vardhan**
+- GitHub: [https://github.com/Harshv2608](https://github.com/Harshv2608)
+
+⭐ **If you found this project useful, consider giving it a star!**
