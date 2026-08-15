@@ -70,7 +70,7 @@ export const login = async (req: Request, res: Response) => {
     
     const token = jwt.sign(
       { sub: user.id, role: user.role },
-      process.env.JWT_ACCESS_SECRET || 'test_secret',
+      process.env.JWT_ACCESS_SECRET || process.env.JWT_SECRET || 'test_secret',
       { expiresIn: (process.env.JWT_ACCESS_EXPIRES_IN || '15m') as any }
     );
     
@@ -139,8 +139,8 @@ export const googleLogin = async (req: Request, res: Response) => {
     }
 
     const jwtToken = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role },
-      process.env.JWT_ACCESS_SECRET!,
+      { sub: user.id, email: user.email, role: user.role },
+      process.env.JWT_ACCESS_SECRET || process.env.JWT_SECRET || 'test_secret',
       { expiresIn: '24h' }
     );
 
