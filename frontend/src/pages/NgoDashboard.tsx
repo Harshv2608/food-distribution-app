@@ -66,7 +66,7 @@ export const NgoDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '24px', borderBottom: '1px solid var(--border)', background: 'var(--bg-card)' }}>
+      <nav className="nav-mobile-wrap" style={{ display: 'flex', justifyContent: 'space-between', padding: '24px', borderBottom: '1px solid var(--border)', background: 'var(--bg-card)' }}>
         <h2 style={{ margin: 0 }}>NGO Dashboard</h2>
         <div className="flex items-center gap-6">
           <span className="text-secondary">{user?.email}</span>
@@ -160,7 +160,7 @@ export const NgoDashboard: React.FC = () => {
                     <button onClick={() => setActiveTab('PROFILE')} className="btn btn-secondary">Configure Needs</button>
                   </div>
                 ) : loading ? (
-                  <div className="grid animate-pulse" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
+                  <div className="grid animate-pulse" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
                     {[1, 2, 3].map(i => (
                       <div key={i} className="glass-panel" style={{ height: '250px' }}></div>
                     ))}
@@ -168,7 +168,7 @@ export const NgoDashboard: React.FC = () => {
                 ) : matches.length === 0 ? (
                   <p className="text-muted">No highly relevant donations found at this time.</p>
                 ) : (
-                  <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
+                  <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
                     {matches.map(m => (
                       <div key={m.id} className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <div className="flex justify-between items-start">
@@ -227,15 +227,15 @@ export const NgoDashboard: React.FC = () => {
                     {claims.length === 0 ? <p className="text-muted">You have no active claims. Check Recommendations to claim donations!</p> : null}
                     
                     {claims.map(c => (
-                      <div key={c.id} className="glass-panel" style={{ padding: '16px', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
+                      <div key={c.id} className="glass-panel flex-col-mobile" style={{ padding: '16px', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
+                        <div className="w-full-mobile">
                           <h4 style={{ margin: 0, color: 'var(--accent)' }}>{c.food_category} - {c.quantity_kg} kg</h4>
                           <p style={{ margin: '4px 0 0', fontSize: '0.9rem' }}>Status: <strong>{c.status}</strong></p>
                           <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: 'var(--text-muted)' }}>{c.description}</p>
                         </div>
                         
-                        <div className="flex gap-2">
-                          <button onClick={() => navigate(`/donations/${c.id}`)} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
+                        <div className="flex gap-2 flex-wrap-mobile w-full-mobile">
+                          <button onClick={() => navigate(`/donations/${c.id}`)} className="btn btn-secondary w-full-mobile" style={{ padding: '8px 16px', fontSize: '0.9rem', flex: 1 }}>
                             View Details / Act
                           </button>
                         </div>

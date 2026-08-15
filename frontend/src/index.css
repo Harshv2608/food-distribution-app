@@ -114,7 +114,34 @@ body {
   .md\:w-64 { width: 16rem; }
   .md\:pb-0 { padding-bottom: 0; }
   .md\:flex { display: flex; }
+  .md\:hidden { display: none !important; }
 }
+
+@media (max-width: 767px) {
+  .md\:hidden { display: none !important; }
+  .flex-col-mobile { flex-direction: column !important; }
+  .flex-wrap-mobile { flex-wrap: wrap !important; }
+  .p-mobile-4 { padding: 1rem !important; }
+  .gap-mobile-4 { gap: 1rem !important; }
+  .text-center-mobile { text-align: center !important; }
+  .w-full-mobile { width: 100% !important; }
+  .hero-padding { padding: 100px 16px 60px !important; }
+  .section-padding { padding: 60px 16px !important; }
+  
+  /* Form panel paddings */
+  .glass-panel { padding: 20px; }
+  
+  /* Top Navigations */
+  .nav-mobile-wrap { 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 16px;
+    padding: 16px;
+  }
+}
+
+.flex-wrap { flex-wrap: wrap; }
+.hidden { display: none; }
 
 .glass-input::placeholder {
   color: var(--text-muted);

@@ -37,7 +37,7 @@ export const Landing: React.FC = () => {
         </div>
         
         {/* Nav Links */}
-        <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+        <div className="hidden md:flex" style={{ gap: '32px', alignItems: 'center' }}>
           <a href="#about" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 600, transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={e => e.currentTarget.style.color='var(--text-secondary)'}>About</a>
           <a href="#impact" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 600, transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={e => e.currentTarget.style.color='var(--text-secondary)'}>Impact</a>
           <a href="#help" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 600, transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={e => e.currentTarget.style.color='var(--text-secondary)'}>How it Works</a>
@@ -50,7 +50,7 @@ export const Landing: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <main style={{ 
+      <main className="hero-padding" style={{ 
         position: 'relative',
         minHeight: '100vh',
         display: 'flex',
@@ -122,7 +122,7 @@ export const Landing: React.FC = () => {
       </main>
 
       {/* About Section */}
-      <section id="about" style={{ padding: '120px 24px', background: 'var(--bg-dark)' }}>
+      <section id="about" className="section-padding" style={{ padding: '120px 24px', background: 'var(--bg-dark)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '80px' }}>
             <h2 style={{ fontSize: '3rem', color: '#ffffff' }}>Why FoodRescue?</h2>
@@ -158,7 +158,7 @@ export const Landing: React.FC = () => {
       </section>
 
       {/* Impact Stats Section (Parallax) */}
-      <section id="impact" style={{ 
+      <section id="impact" className="section-padding" style={{ 
         padding: '140px 24px', 
         background: 'linear-gradient(to right, rgba(10, 12, 16, 0.9), rgba(10, 12, 16, 0.7)), url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop")',
         backgroundSize: 'cover',
@@ -192,7 +192,7 @@ export const Landing: React.FC = () => {
       </section>
 
       {/* How it Works Section */}
-      <section id="help" style={{ padding: '120px 24px', background: 'var(--bg-dark)' }}>
+      <section id="help" className="section-padding" style={{ padding: '120px 24px', background: 'var(--bg-dark)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '80px' }}>
             <h2 style={{ fontSize: '3rem', color: '#ffffff' }}>How it Works</h2>
@@ -236,7 +236,7 @@ export const Landing: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" style={{ padding: '120px 24px', background: '#07090b', borderTop: '1px solid rgba(255,255,255,0.02)' }}>
+      <section id="contact" className="section-padding" style={{ padding: '120px 24px', background: '#07090b', borderTop: '1px solid rgba(255,255,255,0.02)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '80px' }}>
             <h2 style={{ fontSize: '3rem', color: '#ffffff' }}>Get in Touch</h2>
@@ -280,7 +280,7 @@ export const Landing: React.FC = () => {
 
             {/* Contact Form */}
             <form className="glass-panel flex flex-col gap-6" onSubmit={e => { e.preventDefault(); alert('Thanks for reaching out! We will contact you soon.'); }}>
-              <div className="flex gap-4">
+              <div className="flex gap-4 flex-col-mobile">
                 <div className="w-full">
                   <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-secondary)', fontWeight: 600 }}>First Name</label>
                   <input type="text" className="glass-input" placeholder="Jane" required />

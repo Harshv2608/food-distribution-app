@@ -64,7 +64,7 @@ export const DonorDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '24px', borderBottom: '1px solid var(--border)', background: 'var(--bg-card)' }}>
+      <nav className="nav-mobile-wrap" style={{ display: 'flex', justifyContent: 'space-between', padding: '24px', borderBottom: '1px solid var(--border)', background: 'var(--bg-card)' }}>
         <h2 style={{ margin: 0 }}>Donor Dashboard</h2>
         <div className="flex items-center gap-6">
           <span className="text-secondary">{user?.email}</span>
@@ -151,8 +151,8 @@ export const DonorDashboard: React.FC = () => {
                     {donations.length === 0 ? <p className="text-muted">No donations found. Create one to get started!</p> : null}
                     
                     {donations.map(d => (
-                      <div key={d.id} className="glass-panel" style={{ padding: '16px', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
+                      <div key={d.id} className="glass-panel flex-col-mobile" style={{ padding: '16px', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
+                        <div className="w-full-mobile">
                           <h4 style={{ margin: 0, color: 'var(--accent)' }}>{d.food_category} - {d.quantity_kg} kg</h4>
                           <p style={{ margin: '4px 0 0', fontSize: '0.9rem' }}>Status: <strong>{d.status}</strong></p>
                           <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: 'var(--text-muted)' }}>{d.description}</p>
@@ -163,17 +163,17 @@ export const DonorDashboard: React.FC = () => {
                           )}
                         </div>
                         
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap-mobile w-full-mobile">
                           {(d.status === 'COMPLETED' || d.status === 'CANCELLED' || d.status === 'PICKED_UP') && (
-                            <button onClick={() => handleReDonate(d)} className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '0.9rem', background: 'rgba(16, 185, 129, 0.2)', color: 'var(--success)' }}>
+                            <button onClick={() => handleReDonate(d)} className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '0.9rem', background: 'rgba(16, 185, 129, 0.2)', color: 'var(--success)', flex: 1 }}>
                               <Plus size={16} style={{ display: 'inline', marginRight: '4px' }}/> Donate Again
                             </button>
                           )}
-                          <button onClick={() => navigate(`/donations/${d.id}`)} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '0.9rem' }}>
+                          <button onClick={() => navigate(`/donations/${d.id}`)} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '0.9rem', flex: 1 }}>
                             View Details
                           </button>
                           {d.status === 'AVAILABLE' && (
-                            <button onClick={() => handleCancel(d.id)} className="btn" style={{ padding: '8px 16px', fontSize: '0.9rem', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                            <button onClick={() => handleCancel(d.id)} className="btn" style={{ padding: '8px 16px', fontSize: '0.9rem', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', border: '1px solid rgba(239, 68, 68, 0.2)', flex: 1 }}>
                               Cancel
                             </button>
                           )}

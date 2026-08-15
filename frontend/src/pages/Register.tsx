@@ -36,7 +36,7 @@ export const Register: React.FC = () => {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '600px', margin: '24px', padding: '40px 32px' }}>
+      <div className="glass-panel" style={{ width: '100%', maxWidth: '600px', margin: '24px' }}>
         <div className="flex flex-col items-center gap-4">
           <div style={{ padding: '16px', background: 'rgba(16, 185, 129, 0.15)', borderRadius: '50%', color: 'var(--accent)', boxShadow: '0 0 20px rgba(16,185,129,0.2)' }}>
             <UserPlus size={32} />
