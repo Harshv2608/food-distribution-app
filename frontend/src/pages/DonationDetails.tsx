@@ -157,7 +157,7 @@ export const DonationDetails: React.FC = () => {
                 {donation.images.map((img: string, idx: number) => (
                   <img 
                     key={idx} 
-                    src={`http://localhost:3000${img}`} 
+                    src={`${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL : 'http://localhost:3000'}${img}`} 
                     alt={`Donation ${idx + 1}`} 
                     style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--border)' }}
                   />
