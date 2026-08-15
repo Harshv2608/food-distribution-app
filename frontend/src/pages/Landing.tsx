@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  HeartHandshake, Leaf, ShieldCheck, MapPin, ArrowRight, 
+  HeartHandshake, Leaf, MapPin, ArrowRight, 
   Globe, Clock, Mail, Phone, Map, Shield 
 } from 'lucide-react';
 
