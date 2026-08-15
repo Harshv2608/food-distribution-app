@@ -20,9 +20,9 @@ export const Landing: React.FC = () => {
     <div className="min-h-screen" style={{ overflowX: 'hidden', background: 'var(--bg-dark)' }}>
       
       {/* Sticky Navbar */}
-      <nav style={{ 
+      <nav className="nav-mobile-wrap" style={{ 
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        padding: '16px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         background: scrolled ? 'rgba(10, 12, 16, 0.85)' : 'rgba(10, 12, 16, 0.4)',
         backdropFilter: 'blur(16px)',
         borderBottom: scrolled ? '1px solid rgba(16, 185, 129, 0.1)' : '1px solid transparent',
@@ -37,7 +37,7 @@ export const Landing: React.FC = () => {
         </div>
         
         {/* Nav Links */}
-        <div className="hidden md:flex" style={{ gap: '32px', alignItems: 'center' }}>
+        <div className="flex flex-wrap-mobile justify-center gap-mobile-4" style={{ gap: '32px', alignItems: 'center' }}>
           <a href="#about" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 600, transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={e => e.currentTarget.style.color='var(--text-secondary)'}>About</a>
           <a href="#impact" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 600, transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={e => e.currentTarget.style.color='var(--text-secondary)'}>Impact</a>
           <a href="#help" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 600, transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color='var(--text-primary)'} onMouseOut={e => e.currentTarget.style.color='var(--text-secondary)'}>How it Works</a>
